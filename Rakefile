@@ -3,7 +3,7 @@ require "rake/testtask"
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
   t.libs << "lib"
-  t.test_files = FileList["test/02_object_model/test_hierarchy.rb"]
+  t.test_files = FileList["test/02_object_model/test_object_model.rb"]
 end
 
 task :default => :test
