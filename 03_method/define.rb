@@ -44,8 +44,8 @@ end
 # - my_attr_accessorはgetter/setterに加えて、boolean値を代入した際のみ真偽値判定を行うaccessorと同名の?メソッドができること
 
 module OriginalAccessor
-  # インスタンスメソッドとして呼び出すにはclass_evalが必要
-  # クラスメソッドとして呼び出すときには単純にメソッド定義すればいい
+  # インスタンスメソッドとして呼び出すにはclass_evalが必要?
+  # クラスメソッドとして呼び出すときには単純にメソッド定義すればいい?
   def self.included(mod)
     mod.class_eval do
       def self.my_attr_accessor(name)
