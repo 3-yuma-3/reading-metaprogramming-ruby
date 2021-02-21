@@ -6,6 +6,19 @@ TryOver3 = Module.new
 # - `test_` メソッドがこのクラスに実装されていなくても `test_` から始まるメッセージに応答することができる
 # - TryOver3::A1 には `test_` から始まるインスタンスメソッドが定義されていない
 
+class TryOver3::A1
+  def run_test
+    nil
+  end
+
+  def method_missing(method, *args)
+    if method.to_s.start_with?("test_")
+      run_test
+    else
+      raise NoMethodError
+    end
+  end
+end
 
 # Q2
 # 以下要件を満たす TryOver3::A2Proxy クラスを作成してください。
@@ -18,6 +31,25 @@ class TryOver3::A2
   end
 end
 
+class TryOver3::A2Proxy
+  def initialize(instance)
+    @source = instance
+  end
+
+  def method_missing(method_name, *args)
+    if args.size == 0
+      @source.instance_variable_set("@#{method_name}", @source.instance_variable_get("@#{method_name}"))
+    elsif method_name != args
+      @source.instance_variable_set("@#{method_name}", args)
+    else
+      @source.send(method_name, arg)
+    end
+  end
+
+  def respond_to_missing?(sym, include_private)
+    true
+  end
+end
 
 # Q3
 # 前回 OriginalAccessor の my_attr_accessor で定義した getter/setter に boolean の値が入っている場合には #{name}? が定義されるようなモジュールを実装しました。
